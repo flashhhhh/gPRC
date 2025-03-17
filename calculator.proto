@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "calculator/pb";
+
+service Operations {
+    rpc Add (NumberRequest) returns (NumberResponse);
+    rpc Subtract (NumberRequest) returns (NumberResponse);
+    rpc Multiply (NumberRequest) returns (NumberResponse);
+    rpc Division (NumberRequest) returns (NumberResponse);
+    rpc Power (NumberRequest) returns (NumberResponse);
+}
+
+message NumberRequest {
+    int32 firstNum = 1;
+    int32 secondNum = 2;
+}
+
+message NumberResponse {
+    int32 result = 1;
+}
