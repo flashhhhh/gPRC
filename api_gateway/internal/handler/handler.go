@@ -41,3 +41,20 @@ func GetAllUsersHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(usersJSON)
 }
+
+func CreateUserHandler(w http.ResponseWriter, r *http.Request) {
+	username := r.URL.Query().Get("username")
+	password := r.URL.Query().Get("password")
+	name := r.URL.Query().Get("name")
+
+	user := service.CreateUser(username, password, name)
+	userJSON, err := json.Marshal(user)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Error converting user to JSON"))
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(userJSON)
+}

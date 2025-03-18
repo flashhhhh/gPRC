@@ -65,3 +65,24 @@ func GetAllUsers() map[string]interface{} {
 		"users": users,
 	}
 }
+
+func CreateUser(username, password, name string) map[string]interface{} {
+	InitUserService()
+	ctx := context.Background()
+
+	req := &pb.UserRequest{
+		Username: username,
+		Password: password,
+		Name:     name,
+	}
+	res, err := userClient.CreateUser(ctx, req)
+	if err != nil {
+		panic(err)
+	}
+
+	return map[string]interface{}{
+		"id":       res.Id,
+		"username": res.Username,
+		"name":     res.Name,
+	}
+}

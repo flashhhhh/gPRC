@@ -43,3 +43,20 @@ func (s *Server) GetAllUsers(ctx context.Context, in *pb.EmptyRequest) (*pb.User
 		Users: usersArray,
 	}, nil
 }
+
+func (s *Server) CreateUser(ctx context.Context, in *pb.UserRequest) (*pb.UserResponse, error) {
+	username := in.Username
+	password := in.Password
+	name := in.Name
+
+	user, err := repository.CreateUser(username, password, name)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.UserResponse{
+		Id:       int32(user.ID),
+		Username: user.Username,
+		Name:     user.Name,
+	}, nil
+}

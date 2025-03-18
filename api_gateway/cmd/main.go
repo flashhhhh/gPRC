@@ -10,6 +10,7 @@ import (
 func main() {
 	http.HandleFunc("/api/v1/users/getUserById", handler.GetUserByIdHandler)
 	http.HandleFunc("/api/v1/users/getAllUsers", handler.GetAllUsersHandler)
+	http.HandleFunc("/api/v1/users/createUser", handler.CreateUserHandler)
 
 	env.LoadEnv("api_gateway/config/api_gateway.env")
 

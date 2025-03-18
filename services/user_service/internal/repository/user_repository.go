@@ -2,6 +2,7 @@ package repository
 
 import (
 	"errors"
+	"grpc/pkg/hash"
 )
 
 type User struct {
@@ -29,4 +30,20 @@ func GetAllUsers() ([]User, error) {
 	}
 
 	return users, nil
+}
+
+func CreateUser(username, password, name string) (User, error) {
+	hashedPassword := hash.HashString(password)
+
+	user := User{
+		Username: username,
+		Password: hashedPassword,
+		Name:     name,
+	}
+	result := db.Create(&user)
+	if result.Error != nil {
+		return User{}, errors.New("failed to create user")
+	}
+
+	return user, nil
 }

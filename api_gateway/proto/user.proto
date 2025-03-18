@@ -7,12 +7,19 @@ option go_package = "api_gateway/pb";
 service UserService {
     rpc GetUserById (IdRequest) returns (UserResponse);
     rpc GetAllUsers (EmptyRequest) returns (UsersResponse);
+    rpc CreateUser (UserRequest) returns (UserResponse);
 }
 
 message EmptyRequest {}
 
 message IdRequest {
     int32 id = 1;
+}
+
+message UserRequest {
+    string username = 1;
+    string password = 2;
+    string name = 3;
 }
 
 message UserResponse {
