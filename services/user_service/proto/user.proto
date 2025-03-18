@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "services/user_service/pb";
+
+service UserService {
+    rpc GetUserById (IdRequest) returns (UserResponse);
+    rpc GetAllUsers (EmptyRequest) returns (UsersResponse);
+}
+
+message EmptyRequest {}
+
+message IdRequest {
+    int32 id = 1;
+}
+
+message UserResponse {
+    int32 id = 1;
+    string username = 2;
+    string name = 3;
+}
+
+message UsersResponse {
+    repeated UserResponse users = 1;
+}
